@@ -1,0 +1,79 @@
+﻿@using GestorPaciente.Core.Application.ViewModels.LaboratoryTestResult;
+@using GestorPaciente.Core.Application.ViewModels.Date;
+@model LaboratoryTestResultSaveViewModel;
+@{
+    DateSaveViewModel vm = ViewBag.Date;
+    bool editMode;
+    if (Model != null)
+    {
+        editMode = Model.Id == 0 ? false : true;
+    }
+    else
+    {
+        editMode = false;
+    }
+
+    ViewData["Title"] = (editMode ? "Prueba de laboratorio || Actualizar" : "Prueba de laboratorio || Agregar");
+
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    @if ((Model.Patients == null || Model.Patients.Count <= 0) || (Model.Dates == null || Model.Dates.Count <= 0))
+                    {
+                        <h1>Necesita crear Pacientes o Citas</h1>
+                    }else{
+
+                    
+                    <h1 class="card-title text-center">Creando resultado</h1>
+                        <form method="post"  asp-controller="LaboratoryTestResult" asp-action= "Create">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" asp-for="State" value="false">
+                            </div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" asp-for="PatientId">Paciente:</label>
+                            <select class="form-select" asp-for="PatientId" asp-items="@(new SelectList(Model.Patients, "Id", "Identification"))">
+                                <option value="">--Seleccione--</option>
+                            </select>
+                                <span class="text-danger" asp-validation-for="PatientId"></span>
+
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" asp-for="LaboratoriesId">Prueba de laboratorio(Ctrl+Click para seleccionar varios):</label>
+                            <select class="form-select" multiple asp-for="LaboratoriesId" asp-items="@(new SelectList(Model.LaboratoryTests, "Id", "Name"))">
+                                
+                            </select>
+                                <span class="text-danger" asp-validation-for="LaboratoriesId"></span>
+
+
+                            <div class="form-outline mb-4">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" asp-for="DateId" value="@vm.Id">
+                                </div>
+                            </div>
+                        </div>
+                                                                             
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Id">
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    @(editMode ? "Guardar" : "Agregar")
+                                </button>
+                                <a class="btn btn-warning ml-2" asp-controller="LaboratoryTestResult" asp-action="Index">Volver atrás</a>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

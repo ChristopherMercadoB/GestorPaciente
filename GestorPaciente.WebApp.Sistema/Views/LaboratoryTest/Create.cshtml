@@ -1,0 +1,51 @@
+﻿@using GestorPaciente.Core.Application.ViewModels.LaboratoryTest;
+@model LaboratoryTestSaveViewModel;
+@{
+
+    bool editMode;
+    if (Model != null)
+    {
+        editMode = Model.Id == 0 ? false : true;
+    }
+    else
+    {
+        editMode = false;
+    }
+
+    ViewData["Title"] = (editMode ? "Prueba de laboratorio || Actualizar" : "Prueba de laboratorio || Agregar");
+
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                                     
+                        <h1 class="card-title text-center">@(editMode ? "Actualizando Prueba" : "Creando Nueva Prueba")</h1>
+                        <form method="post"  asp-controller="LaboratoryTest" asp-action="@(editMode ? "Update" : "Create")">
+                            <div class="form-group">
+                                <label asp-for="Name">Nombre:</label>
+                                <input type="text" class="form-control" id="Name" asp-for="Name">
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+                                                                             
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Id">
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    @(editMode ? "Guardar" : "Agregar")
+                                </button>
+                                <a class="btn btn-warning ml-2" asp-controller="LaboratoryTest" asp-action="Index">Volver atrás</a>
+                            </div>
+                        </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

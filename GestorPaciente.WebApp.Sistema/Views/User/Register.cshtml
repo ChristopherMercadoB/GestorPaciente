@@ -1,0 +1,126 @@
+﻿@using GestorPaciente.Core.Application.ViewModels.User;
+@model UserSaveViewModel;
+
+@{
+    bool editMode;
+    if (Model != null)
+    {
+        editMode = Model.Id == 0 ? false : true;
+    }
+    else
+    {
+        editMode = false;
+    }
+
+    ViewData["Title"] = "Usuario";
+}
+
+<!-- Section: Design Block -->
+
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+            Gestor de<br />
+            <span class="text-primary">Pacientes</span>
+          </h1>
+          <p style="color: hsl(217, 10%, 50.8%)">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+            quibusdam tempora at cupiditate quis eum maiores libero
+            veritatis? Dicta facilis sint aliquid ipsum atque?
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card">
+            <div class="card-body py-5 px-md-5">
+                        @if (Model.Roles == null || Model.Roles.Count <= 0)
+                        {
+                            <h1>Necesita crear los Roles</h1>
+                        }else{
+
+                        
+                <h6 class="mb-5 display-5 fw-bold ls-tight">
+                   Rgistrarse
+                </h6>
+              @Html.ValidationSummary(false,"", new{@class="text-danger"});
+
+              <form method="post" asp-controller="User" asp-action="@(editMode ? "Update":"Register")">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row">                 
+
+                <!-- Email input -->
+               
+
+               <div class="form-group">
+                    <label asp-for="Name">Nombre:</label>
+                    <input type="text" class="form-control" id="Name" asp-for="Name">
+                     <span class="text-danger" asp-validation-for="Name"></span>
+
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" asp-for="LastName">Lastname</label>
+
+                  <input type="text" class="form-control"  asp-for="LastName"/>
+                  <span class="text-danger" asp-validation-for="LastName"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" asp-for="Username">Username</label>
+
+                  <input type="text" class="form-control" asp-for="Username" />
+                  <span class="text-danger" asp-validation-for="Username"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" asp-for="Email">Email</label>
+
+                  <input type="email" class="form-control" asp-for="Email"/>
+                  <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" asp-for="Password">Password</label>
+
+                  <input type="password" class="form-control"asp-for="Password" />
+                  <span class="text-danger" asp-validation-for="Password"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" asp-for="ConfirmPassword">ConfirmPassword</label>
+
+                  <input type="password" class="form-control" asp-for="ConfirmPassword"/>
+                  <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                </div>               
+
+                <div class="form-outline mb-4">
+                  <select class="form-select" asp-for="RoleId" asp-items="@(new SelectList(Model.Roles, "Id", "Name"))">
+                      <option value="">--Seleccione--</option>
+                  </select>
+                  <label class="form-label" asp-for="RoleId">Role</label>
+                </div>              
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4 col-lg-6 offset-3">
+                  Guardar
+                </button>
+                </div>
+                </form>
+                 }
+              
+                <a class="col-lg-6 offset-2" asp-controller="User" asp-action="Register">Aun no tienes cuenta? Registrate aqui</a>
+                
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+
+<!-- Section: Design Block -->

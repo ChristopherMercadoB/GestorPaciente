@@ -1,0 +1,60 @@
+﻿@using GestorPaciente.Core.Application.ViewModels.Doctor;
+@model List<DoctorViewModel>;
+@{
+    ViewData["Title"] = "Mant. Medicos";
+}
+<div class="text-center mt-3">
+    <h3>Mantenimiento de Medicos</h3>
+    <p>En esta seccion puede crear, actualizar y eliminar Medicos</p>
+</div>
+
+<div class="mg-3">
+    <div>
+        <a class="btn btn-outline-success mb-5 col-lg-6 offset-3" asp-controller="Doctor" asp-action="Create">Agregar Medico</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-9">
+        <div class="container-fluid">
+            <div class=" row row-cols-1 row-cols-md-3 g-3">
+
+                @if (Model == null || Model.Count == 0 )
+                {
+                    <div class="col">
+                        <h1>No hay ningún elemento en la base de datos</h1>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="col">
+                            <div class="card shadow-sm ">
+                                <img class="bd-placeholder-img card-img-top adjust-image" src="@item.ImageUrl" width="100%"  role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <div class="card-body">
+                                    <h4>@item.Name @item.LastName</h4>
+                                    <hr />
+                                    <p><b>Correo: </b>@item.Email</p>
+                                    <p><b>Telefono: </b>@item.Phone</p>
+                                    <p><b>Cedula: </b>@item.Identification</p>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a asp-controller="Doctor" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
+                                            <a asp-controller="Doctor" asp-action="Update" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Editar</a>
+                                        </div>
+                                        <br />
+                                    </div>                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+

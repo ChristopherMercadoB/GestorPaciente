@@ -1,0 +1,75 @@
+﻿@using GestorPaciente.Core.Application.ViewModels.User;
+@model LoginViewModel;
+@{
+
+    ViewData["Title"] = "Index";
+}
+
+<!-- Section: Design Block -->
+
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+    <div class="container-fluid">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+            Gestor de<br />
+            <span class="text-primary">Pacientes</span>
+          </h1>
+          <p style="color: hsl(217, 10%, 50.8%)">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+            quibusdam tempora at cupiditate quis eum maiores libero
+            veritatis? Dicta facilis sint aliquid ipsum atque?
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card">
+            <div class="card-body py-5 px-md-5">
+                <h6 class="mb-5 display-5 fw-bold ls-tight">
+                   Iniciar
+                   <span class="text-primary">Sesion</span>
+                </h6>
+              <form method="post" asp-controller="User" asp-action="Index">
+               
+                <div class="row">     
+                                    
+                <div class="form-outline mb-4">
+                  <input type="text" asp-for="Username" class="form-control" />
+                  <label class="form-label" asp-for="Username">Username</label>
+                </div>
+
+                
+                <div class="form-outline mb-4">
+                  <input type="password" asp-for="Password" class="form-control" />
+                  <label class="form-label" asp-for="Password">Password</label>
+                </div>
+
+            
+                <div class="form-check d-flex justify-content-center mb-4">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                  <label class="form-check-label" for="form2Example33">
+                    Subscribe to our newsletter
+                  </label>
+                </div>
+
+            
+                <button type="submit" class="btn btn-primary btn-block mb-4 col-lg-6 offset-3">
+                  Sign up
+                </button>
+                </div>
+
+                 
+              </form>
+                <a class="col-lg-6 offset-2" asp-controller="User" asp-action="Register">Aun no tienes cuenta? Registrate aqui</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+
+<!-- Section: Design Block -->

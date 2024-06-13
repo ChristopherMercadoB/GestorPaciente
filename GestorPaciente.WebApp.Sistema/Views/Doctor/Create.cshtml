@@ -1,0 +1,97 @@
+﻿@using GestorPaciente.Core.Application.ViewModels.Doctor;
+@model DoctorSaveViewModel;
+@{
+
+    bool editMode;
+    if (Model != null)
+    {
+        editMode = Model.Id == 0 ? false : true;
+    }
+    else
+    {
+        editMode = false;
+    }
+
+    ViewData["Title"] = (editMode ? "Medico || Actualizar" : "Medico || Agregar");
+
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                                     
+                        <h1 class="card-title text-center">@(editMode ? "Actualizando Medico" : "Creando Nuevo Medico")</h1>
+                        <form method="post" enctype="multipart/form-data" asp-controller="Doctor" asp-action="@(editMode ? "Update" : "Create")">
+                            <div class="form-group">
+                                <label asp-for="Name">Nombre:</label>
+                                <input type="text" class="form-control" id="Name" asp-for="Name">
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="LastName">Apellido</label>
+                                <input type="text" class="form-control" asp-for="LastName">
+                                <span class="text-danger" asp-validation-for="LastName"></span>
+
+                            </div>
+
+                        @if (editMode == true)
+                        {
+                            <div class="form-group">
+                                <label asp-for="File">Imagen:</label>
+                                <input type="file" class="form-control" asp-for="File">
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <label asp-for="File">Imagen:</label>
+                                <input type="file" class="form-control" asp-for="File" required>
+
+                            </div>
+                        }
+
+                        <div class="form-group">
+                            <label asp-for="Phone">Telefono:</label>
+                            <input type="text" class="form-control" asp-for="Phone">
+                            <span class="text-danger" asp-validation-for="Phone"></span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Email">Email:</label>
+                            <input type="text" class="form-control" asp-for="Email">
+                            <span class="text-danger" asp-validation-for="Email"></span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Identification">Cedula:</label>
+                            <input type="text" class="form-control" asp-for="Identification">
+                            <span class="text-danger" asp-validation-for="Identification"></span>
+
+                        </div>                                        
+                                                   
+                                                  
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Id">
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    @(editMode ? "Guardar" : "Agregar")
+                                </button>
+                                <a class="btn btn-warning ml-2" asp-controller="Doctor" asp-action="Index">Volver atrás</a>
+                            </div>
+                        </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

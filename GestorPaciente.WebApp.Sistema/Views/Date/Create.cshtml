@@ -1,0 +1,93 @@
+﻿@using GestorPaciente.Core.Application.ViewModels.Date;
+@model DateSaveViewModel;
+@{
+
+    bool editMode;
+    if (Model != null)
+    {
+        editMode = Model.Id == 0 ? false : true;
+    }
+    else
+    {
+        editMode = false;
+    }
+
+    ViewData["Title"] = (editMode ? "Cita || Actualizar" : "Cita || Agregar");
+
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    @if ((Model.Patients == null || Model.Patients.Count <= 0) || (Model.Doctors == null || Model.Doctors.Count <= 0))
+                    {
+                        <h1>Necesita crear Pacientes o Medicos</h1>
+                    }else{
+
+                    
+
+                        <h1 class="card-title text-center">@(editMode ? "Actualizando Cita" : "Creando Nueva Cita")</h1>
+                        <form method="post"  asp-controller="Date" asp-action="@(editMode ? "Update" : "Create")">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" asp-for="State" value="false">
+                            </div>
+                        <div class="form-group">
+                            <label class="form-label" asp-for="Reason">Causa:</label>
+                            <input type="text" class="form-control" asp-for="Reason">
+                            <span class="text-danger" asp-validation-for="Reason"></span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" asp-for="DateDay">Fecha:</label>
+                            <input type="date" class="form-control" asp-for="DateDay">
+                                <span class="text-danger" asp-validation-for="DateDay"></span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" asp-for="DateTime">Hora:</label>
+                            <input type="time" class="form-control" asp-for="DateTime">
+                                <span class="text-danger" asp-validation-for="DateTime"></span>
+
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" asp-for="PatientId">Paciente:</label>
+                            <select class="form-select" asp-for="PatientId" asp-items="@(new SelectList(Model.Patients, "Id", "Name"))">
+                                <option value="">--Seleccione--</option>
+                            </select>
+                                <span class="text-danger" asp-validation-for="PatientId"></span>
+
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" asp-for="DoctorId">Medico:</label>
+                            <select class="form-select" asp-for="DoctorId" asp-items="@(new SelectList(Model.Doctors, "Id", "Name"))">
+                                <option value="">--Seleccione--</option>
+                            </select>
+                                <span class="text-danger" asp-validation-for="DoctorId"></span>
+
+                        </div>
+                                                                             
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Id">
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    @(editMode ? "Guardar" : "Agregar")
+                                </button>
+                                <a class="btn btn-warning ml-2" asp-controller="Date" asp-action="Index">Volver atrás</a>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

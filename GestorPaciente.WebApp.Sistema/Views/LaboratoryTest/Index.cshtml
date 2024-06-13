@@ -1,0 +1,54 @@
+﻿@using GestorPaciente.Core.Application.ViewModels.LaboratoryTest;
+@model List<LaboratoryTestViewModel>;
+@{
+    ViewData["Title"] = "Mant. Prueba de laboratorio";
+}
+<div class="text-center mt-3">
+    <h3>Mantenimiento de Prueba de laboratorio</h3>
+    <p>En esta seccion puede crear, actualizar y eliminar prueba de laboratorio</p>
+</div>
+
+<div class="mg-3">
+    <div>
+        <a class="btn btn-outline-success mb-5 col-lg-6 offset-3" asp-controller="LaboratoryTest" asp-action="Create">Agregar Prueba de Laboratorio</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-9">
+        <div class="container-fluid">
+            <div class=" row row-cols-1 row-cols-md-3 g-3">
+
+                @if (Model == null || Model.Count == 0 )
+                {
+                    <div class="col">
+                        <h1>No hay ningún elemento en la base de datos</h1>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="col bg-">
+                            <div class="card shadow-sm ">
+                                <div class="card-body bg-success">
+                                    <h4>@item.Name</h4>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a asp-controller="LaboratoryTest" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
+                                            <a asp-controller="LaboratoryTest" asp-action="Update" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                        </div>
+                                        <br />
+                                    </div>                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+

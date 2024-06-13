@@ -1,0 +1,70 @@
+﻿@using GestorPaciente.Core.Application.ViewModels.LaboratoryTestResult;
+@model LaboratoryTestResultSaveViewModel;
+@{
+
+    bool editMode;
+    if (Model != null)
+    {
+        editMode = Model.Id == 0 ? false : true;
+    }
+    else
+    {
+        editMode = false;
+    }
+
+    ViewData["Title"] = (editMode ? "Prueba de laboratorio || Actualizar" : "Prueba de laboratorio || Agregar");
+
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                                     
+                        <h1 class="card-title text-center">Agregando Reporte</h1>
+                        <form method="post"  asp-controller="LaboratoryTestResult" asp-action="Report">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" asp-for="State">
+                            </div>
+
+                        <div class="form-group">
+                            <label class="form-label" asp-for="Result">Resultado:</label>
+                            <input type="text" class="form-control" asp-for="Result">                       
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="hidden" class="form-control" asp-for="PatientId">
+
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="hidden" class="form-control" asp-for="DateId">
+                        </div>
+
+
+                        <div class="form-outline mb-4">
+                            <input type="hidden" class="form-control" asp-for="LaboratoryTestId">
+                        </div>
+
+                        
+
+                        <div class="form-group">
+                                <input type="hidden" asp-for="Id">
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    @(editMode ? "Guardar" : "Agregar")
+                                </button>
+                                <a class="btn btn-warning ml-2" asp-controller="LaboratoryTestResult" asp-action="Index">Volver atrás</a>
+                            </div>
+                        </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

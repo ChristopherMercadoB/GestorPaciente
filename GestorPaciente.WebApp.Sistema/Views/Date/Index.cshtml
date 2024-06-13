@@ -1,0 +1,106 @@
+﻿@using GestorPaciente.Core.Application.ViewModels.Date;
+@model List<DateViewModel>
+
+@{
+    ViewData["Title"] = "Mant. Usuarios";
+}
+
+<div class="text-center mt-3">
+    <h3>Mantenimiento de Citas</h3>
+    <p>En esta seccion puede crear, actualizar y eliminar Citas</p>
+</div>
+
+<div class="mg-3">
+    <div>
+        <a class="btn btn-outline-success mb-5 col-lg-6 offset-3" asp-controller="Date" asp-action="Create">Agregar Cita</a>
+    </div>
+</div>
+
+@if (Model == null || Model.Count == 0)
+{
+    <div class="col">
+        <h1>No hay ningún elemento en la base de datos</h1>
+    </div>
+}
+else
+{
+    
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Paciente</th>
+            <th scope="col">Medico</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Causa</th>
+            <th scope="col">Estado</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+            @if (Model == null || Model.Count == 0)
+            {
+                <div class="col">
+                    <h1>No hay ningún elemento en la base de datos</h1>
+                </div>
+            }
+            else
+            {
+
+
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td scope="row">@item.PatientName</td>
+                        <td>@item.DoctorName</td>
+                        <td>@item.DateDay</td>
+                        <th>@item.DateTime</th>
+                        <th>@item.Reason</th>
+                        @if (item.State == false && item.Results.Count == 0)
+                        {
+                            <th>Pendiente de Consulta</th>
+                        }
+                        else if (item.State == true && item.Results.Count > 0)
+                        {
+                            <th>Completada</th>
+
+                        }
+                        else if (item.State == true)
+                        {
+                            <th>Completada y sin resultados</th>
+
+                        }
+                        else if (item.Results.Count > 0 && item.State == false)
+                        {
+                            <th>Pendiente de Resultados</th>
+                        }
+
+
+                        @if (item.State == false && item.Results.Count == 0)
+                        {
+                            <td><a asp-controller="LaboratoryTestResult" asp-action="Create" asp-route-id=@item.Id class="btn btn-outline-danger">Consultar</a></td>
+                        }
+                        else if (item.Results.Count > 0 && item.State == false)
+                        {
+                            <td><a asp-controller="LaboratoryTestResult" asp-action="ConsultReport" asp-route-id=@item.Id class="btn btn-outline-warning">Consultar Resultado</a></td>
+                        }
+                        else if (item.State == true && item.Results.Count > 0)
+                        {
+                            <td><a asp-controller="LaboratoryTestResult" asp-action="ConsultReport" asp-route-id=@item.Id class="btn btn-outline-success">Ver Resultados</a></td>
+
+
+                        }
+                        <td><a asp-controller="Date" asp-action="Delete" asp-route-id=@item.Id class="btn btn-outline-danger">Eliminar</a></td>
+
+
+                    </tr>
+                }
+            }
+
+    </tbody>
+</table>
+}

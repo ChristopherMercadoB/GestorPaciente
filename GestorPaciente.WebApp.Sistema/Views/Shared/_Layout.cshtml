@@ -1,0 +1,114 @@
+﻿
+@using GestorPaciente.Core.Application.ViewModels.User;
+@using Microsoft.AspNetCore.Http;
+@using GestorPaciente.Core.Application.Helpers;
+@inject IHttpContextAccessor accessor;
+@{
+    UserViewModel user = accessor.HttpContext.Session.GetSession<UserViewModel>("user");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GestorPaciente.WebApp.Sistema</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/GestorPaciente.WebApp.Sistema.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head> 
+    <body>
+        <div class="container-fluid">
+            <div class="row vh-100">
+            @if (user != null) {
+
+
+                <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+                    <div class="sidebar-sticky">
+                        <div class="py-4">
+                            <a href="#" class="nav-link d-flex align-items-center text-decoration-none">
+                                <svg class="bi text-dark me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                                <span class="fs-4">Menu</span>
+                            </a>
+                        </div>
+                        <ul class="nav flex-column mb-auto">
+                            <li class="nav-item">
+                                <a asp-controller="Home" action="Index" class="nav-link active">
+                                    <i class="fas fa-home me-2"></i>
+                                    Home
+                                </a>
+                            </li>
+                            @if (user.RoleId == 1)
+                            {
+
+                                <li class="nav-item">
+                                    <a asp-controller="User" asp-action="Index" class="nav-link">
+                                        <i class="fas fa-users me-2"></i>
+                                        Usuarios
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Doctor" asp-action="Index" class="nav-link">
+                                        <i class="fas fa-user-md"></i>
+                                        Medicos
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a asp-controller="LaboratoryTest" asp-action="Index" class="nav-link">
+                                        <i class="fas fa-flask"></i>
+                                        Pruebas de Laboratorio
+                                    </a>
+                                </li>
+                            }else if (user.RoleId == 2)
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Patient" asp-action="Index" class="nav-link">
+                                        <i class="fas fa-user-injured"></i>
+
+                                        Pacientes
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a asp-controller="Date" asp-action="Index" class="nav-link">
+                                        <i class="far fa-calendar-alt"></i>
+
+                                        Citas
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a asp-controller="LaboratoryTestResult" asp-action="Index" class="nav-link">
+                                        <i class="fas fa-poll"></i>
+                                        Resultados
+                                    </a>
+                                </li>
+                            }
+
+                            <li class="nav-item">
+                                <a asp-controller="User" asp-action="Logout" class="nav-link">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Salir
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </div>
+                </nav>
+            }
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+
+   
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
